@@ -16,6 +16,10 @@ const Authentication = () => {
     const [formFields, setFormFields] = useState(defaultFormFields);
     const {email, password} = formFields;
 
+    const resetFormFields = () => {
+        setFormFields(defaultFormFields);
+    }
+
     const signInGoogleUser = async () => {
         await signInWithGooglePopup();
     }
@@ -30,8 +34,8 @@ const Authentication = () => {
         event.preventDefault(); //prevents any default beahavior of the form
 
         try {
-            const response = await signInAuthUserWithEmailAndPassword(email, password);
-            console.log(response);
+            await signInAuthUserWithEmailAndPassword(email, password);
+            resetFormFields();
         } catch(error) {
             switch(error.code) {
                 case 'auth/wrong-password':
